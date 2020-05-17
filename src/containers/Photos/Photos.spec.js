@@ -85,6 +85,16 @@ describe('Photos.vue', () => {
         it('should call getRandomPhotos to get photos with incremented page number of 2', () => {
           expect(spy).toHaveBeenCalledWith(2);
         });
+
+        describe('when the user scrolls to the bottom of the page during loading of another scroll', () => {
+          beforeEach(() => {
+            window.dispatchEvent(new CustomEvent('scroll', { detail: 2000 }));
+          });
+
+          it('should NOT make anymore calls to getRandomPhotos', () => {
+            expect(spy).toHaveBeenCalledWith(2);
+          });
+        });
       });
     });
 

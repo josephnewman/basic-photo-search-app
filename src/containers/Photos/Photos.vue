@@ -45,8 +45,9 @@ export default {
         }
       } catch (e) {
         /*in the real world we would do something here */
+      } finally {
+        this.loading = false;
       }
-      this.loading = false;
     },
     scroll() {
       window.onscroll = () => {
@@ -60,7 +61,7 @@ export default {
             150 >=
           window.document.documentElement.offsetHeight;
 
-        if (bottomOfWindow) {
+        if (bottomOfWindow && this.loading === false) {
           this.loading = true;
           setTimeout(this.getPhotos, config.PHOTO_DELAY_TIME);
         }
