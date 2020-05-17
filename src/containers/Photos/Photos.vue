@@ -56,7 +56,8 @@ export default {
             window.document.documentElement.scrollTop,
             window.document.body.scrollTop
           ) +
-            window.innerHeight ===
+            window.innerHeight +
+            150 >=
           window.document.documentElement.offsetHeight;
 
         if (bottomOfWindow) {
