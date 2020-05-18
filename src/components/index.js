@@ -1,3 +1,4 @@
 import PhotoCard from './PhotoCard';
+import TextInput from './TextInput';
 
-export { PhotoCard };
+export { PhotoCard, TextInput };

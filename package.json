@@ -1,5 +1,5 @@
 {
-  "name": "sample-photos-app",
+  "name": "photo-search",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -12,6 +12,7 @@
     "axios": "^0.19.2",
     "core-js": "^3.6.4",
     "jest": "^25.2.4",
+    "lodash.debounce": "^4.0.8",
     "vue": "^2.6.11"
   },
   "devDependencies": {

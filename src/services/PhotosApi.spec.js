@@ -15,14 +15,15 @@ describe('PhotosApi', () => {
   describe('when getRandomPhotos is called', () => {
     let result;
     let page = '1';
+    let query = 'florist';
 
     beforeEach(() => {
-      result = PhotosApi.getRandomPhotos(1);
+      result = PhotosApi.getRandomPhotos(query, 1);
     });
 
     test('should call the mock getRandomPhotos api with the expected url', () => {
       expect(mockApi).toHaveBeenCalledWith(
-        `/api/&q=florist&per_page=30&page=${page}`
+        `/api/&q=${query}&per_page=30&page=${page}`
       );
     });
 

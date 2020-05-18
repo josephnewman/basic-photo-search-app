@@ -1,11 +1,7 @@
 <template>
   <div class="photo-card">
     <a :href="image.pageURL" class="photo-card__anchor" target="_blank">
-      <img
-        :src="image.webformatURL"
-        :alt="image.user"
-        class="photo-card__img"
-      />
+      <img :src="image.webformatURL" :alt="image.user" class="photo-card__img" />
       <div class="photo-card__author">{{ image.user }}</div>
     </a>
   </div>

@@ -1,11 +1,9 @@
 <template>
   <div class="photos">
-    <PhotoCard
-      v-for="photo in photos"
-      :key="photo.id"
-      :image="photo"
-      class="photos__card"
-    />
+    <div class="photos__search">
+      <TextInput v-model="query" @text-input="onQueryChange" type="input" class="photos__input" />
+    </div>
+    <PhotoCard v-for="photo in photos" :key="photo.id" :image="photo" class="photos__card" />
     <div v-if="loading" class="photos__loading">
       <img class="photos__spinner" src="../../assets/pulse.svg" />
     </div>
@@ -14,18 +12,21 @@
 
 <script>
 import PhotosApi from '@/services/PhotosApi';
-import { PhotoCard } from '../../components';
+import { PhotoCard, TextInput } from '../../components';
 import config from '../../constants/config';
+import debounce from 'lodash.debounce';
 
 export default {
   name: 'Photos',
   components: {
-    PhotoCard
+    PhotoCard,
+    TextInput
   },
   data() {
     return {
       photos: [],
       page: 0,
+      query: 'florist',
       loading: false
     };
   },
@@ -38,7 +39,7 @@ export default {
       this.loading = true;
       this.page = this.page + 1;
       try {
-        let newPhotos = await PhotosApi.getRandomPhotos(this.page);
+        let newPhotos = await PhotosApi.getRandomPhotos(this.query, this.page);
 
         if (newPhotos) {
           this.photos = [...new Set([...this.photos, ...newPhotos])];
@@ -49,14 +50,15 @@ export default {
         this.loading = false;
       }
     },
+    onQueryChange: debounce(function() {
+      this.page = 0;
+      this.photos = [];
+      this.getPhotos();
+    }, 500),
     scroll() {
       window.onscroll = () => {
         let bottomOfWindow =
-          Math.max(
-            window.pageYOffset,
-            window.document.documentElement.scrollTop,
-            window.document.body.scrollTop
-          ) +
+          Math.max(window.pageYOffset, window.document.documentElement.scrollTop, window.document.body.scrollTop) +
             window.innerHeight +
             150 >=
           window.document.documentElement.offsetHeight;
@@ -82,7 +84,8 @@ export default {
     margin: 25px;
   }
 
-  &__loading {
+  &__loading,
+  &__search {
     width: 100%;
   }
 

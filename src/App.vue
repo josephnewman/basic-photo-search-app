@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <h1>Sample Photos App</h1>
+    <h1>Photo Search</h1>
     <Photos />
   </div>
 </template>

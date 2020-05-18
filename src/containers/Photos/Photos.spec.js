@@ -3,7 +3,7 @@ import Photos from './Photos';
 import PHOTOS_MOCK from '../../../mocks/photosMock';
 import PhotosApi from '../../services/PhotosApi';
 
-jest.mock('../../services/PhotosApi');
+jest.mock('lodash.debounce', () => jest.fn(fn => fn));
 
 jest.useFakeTimers();
 
@@ -24,9 +24,7 @@ describe('Photos.vue', () => {
         rejectPromise = reject;
       });
 
-      spy = jest
-        .spyOn(PhotosApi, 'getRandomPhotos')
-        .mockReturnValue(mockRandomPhotosResponse);
+      spy = jest.spyOn(PhotosApi, 'getRandomPhotos').mockReturnValue(mockRandomPhotosResponse);
     });
 
     it('should render without issue', () => {
@@ -38,7 +36,7 @@ describe('Photos.vue', () => {
     });
 
     it('should call getRandomPhotos to get photos', () => {
-      expect(spy).toHaveBeenCalledWith(1);
+      expect(spy).toHaveBeenCalledWith('florist', 1);
     });
 
     describe('when the api resolves with photos', () => {
@@ -54,6 +52,16 @@ describe('Photos.vue', () => {
 
       it('should have 2 photos', () => {
         expect(wrapper.findAll('.photos__card').length).toBe(2);
+      });
+
+      describe('when the user inputs a new value in the search field', () => {
+        beforeEach(() => {
+          wrapper.find('.photos__input').vm.$emit('text-input', 'foo');
+        });
+
+        it('should call getRandomPhotos to get photos with new value', () => {
+          expect(spy).toHaveBeenCalledWith('foo', 1);
+        });
       });
 
       describe('when the user scrolls but not to the bottom of the page', () => {
@@ -83,7 +91,7 @@ describe('Photos.vue', () => {
         });
 
         it('should call getRandomPhotos to get photos with incremented page number of 2', () => {
-          expect(spy).toHaveBeenCalledWith(2);
+          expect(spy).toHaveBeenCalledWith('florist', 2);
         });
 
         describe('when the user scrolls to the bottom of the page during loading of another scroll', () => {
@@ -92,7 +100,7 @@ describe('Photos.vue', () => {
           });
 
           it('should NOT make anymore calls to getRandomPhotos', () => {
-            expect(spy).toHaveBeenCalledWith(2);
+            expect(spy).toHaveBeenCalledWith('florist', 2);
           });
         });
       });
