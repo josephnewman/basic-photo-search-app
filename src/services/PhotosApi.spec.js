@@ -21,12 +21,14 @@ describe('PhotosApi', () => {
     });
 
     test('should call the mock getRandomPhotos api with the expected url', () => {
-      expect(mockApi).toHaveBeenCalledWith(`/v2/list?page=${page}`);
+      expect(mockApi).toHaveBeenCalledWith(
+        `/api/&q=florist&per_page=30&page=${page}`
+      );
     });
 
     describe('when the api request is a success', () => {
       beforeEach(() => {
-        resolveApi({ data: true });
+        resolveApi({ data: { hits: true } });
       });
 
       test('should return true', () => {

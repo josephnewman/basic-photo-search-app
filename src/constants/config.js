@@ -1,4 +1,4 @@
 export default {
-  PICSUM_URL: 'https://picsum.photos',
+  API_URL: 'https://sample-api-proxy.herokuapp.com',
   PHOTO_DELAY_TIME: 3000
 };

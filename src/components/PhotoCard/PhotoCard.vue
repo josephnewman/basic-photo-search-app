@@ -1,12 +1,12 @@
 <template>
   <div class="photo-card">
-    <a :href="image.url" class="photo-card__anchor" target="_blank">
+    <a :href="image.pageURL" class="photo-card__anchor" target="_blank">
       <img
-        :src="`https://i.picsum.photos/id/${image.id}/300/300.jpg`"
-        :alt="image.author"
+        :src="image.webformatURL"
+        :alt="image.user"
         class="photo-card__img"
       />
-      <div class="photo-card__author">{{ image.author }}</div>
+      <div class="photo-card__author">{{ image.user }}</div>
     </a>
   </div>
 </template>
