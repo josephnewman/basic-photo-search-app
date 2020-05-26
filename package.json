@@ -1,5 +1,8 @@
 {
-  "name": "photo-search",
+  "name": "basic-photo-search-app",
+  "author": {
+    "name": "Joseph"
+  },
   "version": "0.1.0",
   "private": true,
   "scripts": {
