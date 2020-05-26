@@ -1,5 +1,6 @@
 import PhotosApi from './PhotosApi';
 import Api from './Api';
+import config from '../constants/config';
 
 describe('PhotosApi', () => {
   let mockApi;
@@ -15,16 +16,14 @@ describe('PhotosApi', () => {
   describe('when getRandomPhotos is called', () => {
     let result;
     let page = '1';
-    let query = 'florist';
+    let query = config.DEFAULT_SEARCH_TERM;
 
     beforeEach(() => {
       result = PhotosApi.getRandomPhotos(query, 1);
     });
 
     test('should call the mock getRandomPhotos api with the expected url', () => {
-      expect(mockApi).toHaveBeenCalledWith(
-        `/api/&q=${query}&per_page=30&page=${page}`
-      );
+      expect(mockApi).toHaveBeenCalledWith(`/api/&q=${query}&per_page=30&page=${page}`);
     });
 
     describe('when the api request is a success', () => {

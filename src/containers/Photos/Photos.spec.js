@@ -2,6 +2,7 @@ import { mount } from '@vue/test-utils';
 import Photos from './Photos';
 import PHOTOS_MOCK from '../../../mocks/photosMock';
 import PhotosApi from '../../services/PhotosApi';
+import config from '../../constants/config';
 
 jest.mock('lodash.debounce', () => jest.fn(fn => fn));
 
@@ -36,7 +37,7 @@ describe('Photos.vue', () => {
     });
 
     it('should call getRandomPhotos to get photos', () => {
-      expect(spy).toHaveBeenCalledWith('florist', 1);
+      expect(spy).toHaveBeenCalledWith(config.DEFAULT_SEARCH_TERM, 1);
     });
 
     describe('when the api resolves with photos', () => {
@@ -91,7 +92,7 @@ describe('Photos.vue', () => {
         });
 
         it('should call getRandomPhotos to get photos with incremented page number of 2', () => {
-          expect(spy).toHaveBeenCalledWith('florist', 2);
+          expect(spy).toHaveBeenCalledWith(config.DEFAULT_SEARCH_TERM, 2);
         });
 
         describe('when the user scrolls to the bottom of the page during loading of another scroll', () => {
@@ -100,7 +101,7 @@ describe('Photos.vue', () => {
           });
 
           it('should NOT make anymore calls to getRandomPhotos', () => {
-            expect(spy).toHaveBeenCalledWith('florist', 2);
+            expect(spy).toHaveBeenCalledWith(config.DEFAULT_SEARCH_TERM, 2);
           });
         });
       });

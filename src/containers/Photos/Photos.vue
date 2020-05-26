@@ -26,7 +26,7 @@ export default {
     return {
       photos: [],
       page: 0,
-      query: 'florist',
+      query: config.DEFAULT_SEARCH_TERM,
       loading: false
     };
   },
